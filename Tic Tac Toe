@@ -1,0 +1,106 @@
+lis = []
+count = 0
+
+print("Coordinates are as follow:")    # Explain the coordinates position
+print("-----------")
+print("| 13 23 33 |")
+print("| 12 22 32 |")
+print("| 11 21 31 |")
+print("-----------")
+
+print("---------")      # Print a blank format of game
+for j in reversed(range(1, 4)):
+    print("| ", end="")
+    for i in range(1, 4):
+        lis.append(" ")
+        print(lis[count], end=" ")
+        count += 1
+    print("| ", end="")
+    print()
+print("---------\n")
+con = 0
+word = ""
+while True:
+    try:
+        count = 0
+        for i in lis:
+            if i == 'X' or i == 'O':
+                count += 1
+        if count == 9:
+            print('Draw')
+            break
+        fir, sec = input('Enter the coordinates (ex - 1 1, 2 2): ').split()
+        fir = int(fir)
+        sec = int(sec)
+        count = 0
+
+        if 1 <= fir <= 3 and 1 <= sec <= 3:
+            for j in reversed(range(1, 4)):
+                for i in range(1, 4):
+                    if fir == i and sec == j:
+                        word = lis[count]
+                    count += 1
+        else:
+            print("Coordinates should be from 1 to 3!")
+            continue
+
+        if word == "X" or word == "O":
+            print("This cell is occupied! Choose another one!")
+            continue
+
+    except ValueError as error:
+        print("You should enter numbers!")
+        continue
+
+    count = 0
+    print("---------")
+    for j in reversed(range(1, 4)):
+        print("| ", end="")
+        for i in range(1, 4):
+            if fir == i and sec == j:
+                if con == 0:
+                    lis[count] = 'X'
+                    con = 1
+                else:
+                    lis[count] = 'O'
+                    con = 0
+            else:
+                lis.append(" ")
+            print(lis[count], end=" ")
+            count += 1
+        print("| ", end="")
+        print()
+    print("---------\n")
+
+    win = 0
+    z = ""
+    for i in range(0, 3):
+        if lis[i] == 'X' or lis[i] == 'O':
+            if lis[i] == lis[i+3] == lis[i+6]:
+
+                print(lis[i] + " wins")
+                win = 1
+    if win == 1:
+        break
+
+    for i in range(0, 7, 3):
+        if lis[i] == 'X' or lis[i] == 'O':
+            if lis[i] == lis[i + 1] == lis[i + 2]:
+                print(lis[i] + " wins")
+                win = 1
+    if win == 1:
+        break
+
+    if lis[0] == 'X' or lis[0] == 'O':
+        if lis[0] == lis[4] == lis[8]:
+            win = 1
+            print(lis[0] + " wins")
+
+    if lis[2] == 'X' or lis[2] == 'O':
+        if lis[2] == lis[4] == lis[6]:
+            win = 1
+            print(lis[2] + " wins*")
+
+    if win == 1:
+        break
+
